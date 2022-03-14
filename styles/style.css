@@ -102,6 +102,20 @@ p {
     justify-content: center;
 }
 
+.delete-button {
+    /* border: solid 1px black;
+    text-align: center;
+    display: flex;
+    width: 200px;
+    display: flex;
+    justify-content: center; */
+
+
+        display: block;
+        width: 50%;
+    
+}
+
 .team {
     max-width: 200px;
     text-overflow: ellipsis;

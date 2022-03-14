@@ -87,20 +87,34 @@ teamTwoSubtractButton.addEventListener('click', () => {
 
     // refresh the current game element with new data by calling the appropriate function
 });
+  
 
+let counter = 0;
 finishGameButton.addEventListener('click', () => {
 
-    currentGame = [name1: name1, name2: name2, score1: score1, score2: score2]
+    
+
+    counter++;
+    const currentGame = { name1: name1, name2: name2, score1: score1, score2: score2 };
+
+    pastGames.push(currentGame);
     
     // add the current game to an array of games in state
     // it will be helpful to keep track of these games as objects with 4 properties, one for each piece of state we're tracking
     // for example, make an object like this: { name1: 'ducks', name2: 'bears' ,score1: 1, score2: 2 } 
     // then push it to your array in state
     // (be sure to make a new object. do not declare the object in global scope and mutate it for reuse. This would cause difficult bugs)
-    
+
     displayAllGames();
 
+    
+  
+
     // reset the state to zero and empty strings
+
+    currentGameEl.textContent = '';
+
+    refreshCurrentGameEl();
     
     // refresh the current game element with new data by calling the appropriate function
 });
@@ -127,7 +141,52 @@ function refreshCurrentGameEl() {
 function displayAllGames() {
     // clear out the past games list in the DOM
 
-    // loop through the past games in state
-    // use the renderGame function to render and append a past game for each past game in state
-    // again, review the renderGame function in render-utils.js. How many arguments does it take? What order does it take them in?
+    pastGamesEl.textContent = '';
+
+    for (let pastGame of pastGames){
+
+        const gameEl = renderGame(pastGame.name1, pastGame.name2, pastGame.score1, pastGame.score2);
+        const gameButton = document.createElement('button');
+
+        gameButton.id = 'gameButton' + (counter++);
+
+        gameEl.classList.add('past');
+        gameEl.setAttribute('id', 'Div' + (counter++));
+
+        pastGamesEl.append(gameEl);
+        pastGamesEl.append(gameButton);
+        gameButton.classList.add('delete-button');
+        gameButton.textContent = 'Delete Me';
+
+        gameButton1.addEventListener('click', () => {
+
+            deleteGame();
+
+   
+
+        });
+
+    }
+
+    function deleteGame() {
+
+        pastGamesEl.parentNode.removeChild('Div2');
+    }
+        
 }
+
+ 
+
+
+        
+
+
+// const gameButton = document.getElementById('gameButton');
+
+// console.log(gameButton);
+    
+//    gameButton.addEventListener('click', () => {
+
+   
+
+// });
