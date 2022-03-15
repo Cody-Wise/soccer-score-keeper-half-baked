@@ -11,27 +11,53 @@ const teamTwoSubtractButton = document.getElementById('team-two-subtract-button'
 const finishGameButton = document.getElementById('finish-game-button');
 const teamOneLabel = document.getElementById('team-one-name');
 const teamTwoLabel = document.getElementById('team-two-name');
+// const teamOneInput = document.getElementById('team-one-name');
+// const teamTwoInput = document.getElementById('team-two-name');
 
 // create an array to hold on to the state of past games
+const pastGames = [];
+
+
 
 let name1 = '';
-let name2 =  '';
+let name2 = '';
 let score1 = 0;
 let score2 = 0;
 
-nameFormButton.addEventListener('click', (e) => {
+nameFormButton.addEventListener('click', () => {
     // get the name data from the form
+
+    const currentName1 = teamOneLabel.value;
+    const currentName2 = teamTwoLabel.value;
 
     // set the state to this data from the form
 
+    
+
+    name1 = currentName1;
+    name2 = currentName2;
+
+    score1 = 0;
+    score2 = 0;
+
     // reset the form values
 
+    
+
     // refresh the current game element with new data by calling the appropriate function
+    refreshCurrentGameEl();
+    
+    teamOneLabel.value = '';
+    teamTwoLabel.value = '';
 });
 
 
 teamOneAddButton.addEventListener('click', () => {
     // increment the current state for team one's score
+
+    score1++;
+
+    refreshCurrentGameEl();
     
     // refresh the current game element with new data by calling the appropriate function
 });
@@ -39,11 +65,16 @@ teamOneAddButton.addEventListener('click', () => {
 teamTwoAddButton.addEventListener('click', () => {
     // increment the current state for team two's score
 
+    score2++;
+    refreshCurrentGameEl();
     // refresh the current game element with new data by calling the appropriate function
 });
 
 teamOneSubtractButton.addEventListener('click', () => {
     // decrement the current state for team one's score
+
+    score1--;
+    refreshCurrentGameEl();
 
     // refresh the current game element with new data by calling the appropriate function
 });
@@ -51,20 +82,39 @@ teamOneSubtractButton.addEventListener('click', () => {
 teamTwoSubtractButton.addEventListener('click', () => {
     // decrement the current state for team two's score
 
+    score2--;
+    refreshCurrentGameEl();
+
     // refresh the current game element with new data by calling the appropriate function
 });
+  
 
+let counter = 0;
 finishGameButton.addEventListener('click', () => {
+
+    
+
+    counter++;
+    const currentGame = { name1: name1, name2: name2, score1: score1, score2: score2 };
+
+    pastGames.push(currentGame);
     
     // add the current game to an array of games in state
     // it will be helpful to keep track of these games as objects with 4 properties, one for each piece of state we're tracking
     // for example, make an object like this: { name1: 'ducks', name2: 'bears' ,score1: 1, score2: 2 } 
     // then push it to your array in state
     // (be sure to make a new object. do not declare the object in global scope and mutate it for reuse. This would cause difficult bugs)
-    
+
     displayAllGames();
 
+    
+  
+
     // reset the state to zero and empty strings
+
+    currentGameEl.textContent = '';
+
+    refreshCurrentGameEl();
     
     // refresh the current game element with new data by calling the appropriate function
 });
@@ -74,6 +124,8 @@ function refreshCurrentGameEl() {
 
     teamOneLabel.textContent = name1;
     teamTwoLabel.textContent = name2;
+
+    const gameEl = renderGame(name1, name2, score1, score2);
 
     // const gameEl = . . . 
     // make a new gameEl here by calling renderGame with the approriate arguments. 
@@ -89,7 +141,34 @@ function refreshCurrentGameEl() {
 function displayAllGames() {
     // clear out the past games list in the DOM
 
-    // loop through the past games in state
-    // use the renderGame function to render and append a past game for each past game in state
-    // again, review the renderGame function in render-utils.js. How many arguments does it take? What order does it take them in?
+    pastGamesEl.textContent = '';
+
+    for (let pastGame of pastGames){
+
+        const gameEl = renderGame(pastGame.name1, pastGame.name2, pastGame.score1, pastGame.score2);
+        const removeButton = document.createElement('button');
+
+        removeButton.id = 'removeButton' + (counter++);
+
+        gameEl.classList.add('past');
+        
+
+        pastGamesEl.append(gameEl);
+       
+        pastGamesEl.append(removeButton);
+        removeButton.classList.add('delete-button');
+        removeButton.textContent = 'Delete Me';
+
+        removeButton.addEventListener('click', () => {
+
+            
+
+            pastGames.shift();
+            displayAllGames();
+
+        });
+   
+
+    }
+
 }
