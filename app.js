@@ -151,65 +151,24 @@ function displayAllGames() {
         removeButton.id = 'removeButton' + (counter++);
 
         gameEl.classList.add('past');
-        // gameEl.setAttribute('id', 'Div' + (counter++));
+        
 
         pastGamesEl.append(gameEl);
-        // deleteMe();
+       
         pastGamesEl.append(removeButton);
         removeButton.classList.add('delete-button');
         removeButton.textContent = 'Delete Me';
 
         removeButton.addEventListener('click', () => {
 
-            // deleteGame();
-        //    pastGames.shift();
-        //    displayAllGames();
+            
 
-        pastGames.filter(function(item) {
-            return item.Id !== idToRemove;
+            pastGames.shift();
+            displayAllGames();
+
         });
    
-
-        });
 
     }
 
-    // function deleteGame() {
-
-    //     // pastGamesEl.parentNode.removeChild('Div2');
-    // }
-        
 }
-
-// function deleteMe() {
-
-//     const removeButton = document.createElement('button');
-
-//     removeButton.id = 'removeButton' + (counter++);
-
-//     removeButton.classList.add('delete-button');
-//     removeButton.textContent = 'Delete Me';
-
-//     removeButton.addEventListener('click', () => {
-
-//         // deleteGame();
-
-
-
-//     });
-
- 
-
-
-        
-
-
-// const gameButton = document.getElementById('gameButton');
-
-// console.log(gameButton);
-    
-//    gameButton.addEventListener('click', () => {
-
-   
-
-// });
