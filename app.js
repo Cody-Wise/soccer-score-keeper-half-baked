@@ -146,34 +146,57 @@ function displayAllGames() {
     for (let pastGame of pastGames){
 
         const gameEl = renderGame(pastGame.name1, pastGame.name2, pastGame.score1, pastGame.score2);
-        const gameButton = document.createElement('button');
+        const removeButton = document.createElement('button');
 
-        gameButton.id = 'gameButton' + (counter++);
+        removeButton.id = 'removeButton' + (counter++);
 
         gameEl.classList.add('past');
-        gameEl.setAttribute('id', 'Div' + (counter++));
+        // gameEl.setAttribute('id', 'Div' + (counter++));
 
         pastGamesEl.append(gameEl);
-        pastGamesEl.append(gameButton);
-        gameButton.classList.add('delete-button');
-        gameButton.textContent = 'Delete Me';
+        // deleteMe();
+        pastGamesEl.append(removeButton);
+        removeButton.classList.add('delete-button');
+        removeButton.textContent = 'Delete Me';
 
-        gameButton1.addEventListener('click', () => {
+        removeButton.addEventListener('click', () => {
 
-            deleteGame();
+            // deleteGame();
+        //    pastGames.shift();
+        //    displayAllGames();
 
+        pastGames.filter(function(item) {
+            return item.Id !== idToRemove;
+        });
    
 
         });
 
     }
 
-    function deleteGame() {
+    // function deleteGame() {
 
-        pastGamesEl.parentNode.removeChild('Div2');
-    }
+    //     // pastGamesEl.parentNode.removeChild('Div2');
+    // }
         
 }
+
+// function deleteMe() {
+
+//     const removeButton = document.createElement('button');
+
+//     removeButton.id = 'removeButton' + (counter++);
+
+//     removeButton.classList.add('delete-button');
+//     removeButton.textContent = 'Delete Me';
+
+//     removeButton.addEventListener('click', () => {
+
+//         // deleteGame();
+
+
+
+//     });
 
  
 
